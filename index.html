@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth theme-forest">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Reflection Room - University Book Club</title>
+    <meta name="theme-color" content="#f8faf8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#2d1e13" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Custom Properties for Multi-Theme System */
+        
+        /* Forest Theme */
+        .theme-forest {
+            --bg: #F7FAF7;
+            --card: #E8F2EC;
+            --text: #2E473B;
+            --accent: #4A9776;
+            --secondary: #B9D6C2;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --border: #D1E7DD;
+            --hover: #3A7B60;
+        }
+        
+        .theme-forest.dark {
+            --bg: #181D19;
+            --card: #27332A;
+            --text: #F1F9F3;
+            --accent: #67D2A6;
+            --secondary: #375949;
+            --nav-bg: rgba(39, 51, 42, 0.95);
+            --border: #375949;
+            --hover: #7DE0B3;
+        }
+        
+        /* Indigo Theme */
+        .theme-indigo {
+            --bg: #F5F8FC;
+            --card: #E5ECF8;
+            --text: #233152;
+            --accent: #5271FF;
+            --secondary: #C6D1EE;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --border: #C6D1EE;
+            --hover: #3F5CDB;
+        }
+        
+        .theme-indigo.dark {
+            --bg: #181B25;
+            --card: #24283B;
+            --text: #F1F4FA;
+            --accent: #7FA5FF;
+            --secondary: #323B5B;
+            --nav-bg: rgba(36, 40, 59, 0.95);
+            --border: #323B5B;
+            --hover: #9FB8FF;
+        }
+        
+        /* Parchment Theme */
+        .theme-parchment {
+            --bg: #F7F3EC;
+            --card: #FFF9EF;
+            --text: #3E2C19;
+            --accent: #947855;
+            --secondary: #F3E1B6;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --border: #E8D5A6;
+            --hover: #7A6344;
+        }
+        
+        .theme-parchment.dark {
+            --bg: #2B2119;
+            --card: #362B1F;
+            --text: #F5E9D8;
+            --accent: #E3B074;
+            --secondary: #9A744D;
+            --nav-bg: rgba(54, 43, 31, 0.95);
+            --border: #9A744D;
+            --hover: #F1C688;
+        }
+        
+        /* Apply theme variables to page */
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+        }
+        
+        .theme-card {
+            background-color: var(--card);
+            border-color: var(--border);
+        }
+        
+        .theme-nav {
+            background-color: var(--nav-bg);
+            border-color: var(--border);
+        }
+        
+        .theme-text {
+            color: var(--text);
+        }
+        
+        .theme-accent {
+            color: var(--accent);
+        }
+        
+        .theme-accent-bg {
+            background-color: var(--accent);
+        }
+        
+        .theme-accent-bg:hover {
+            background-color: var(--hover);
+        }
+        
+        .theme-secondary {
+            color: var(--secondary);
+        }
+        
+        .theme-secondary-bg {
+            background-color: var(--secondary);
+        }
+        
+        .theme-border {
+            border-color: var(--border);
+        }
+        
+        /* Theme Switcher Styles */
+        .theme-switcher {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+        }
+        
+        .theme-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 0.375rem;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .theme-btn.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        .theme-btn-forest {
+            background: linear-gradient(135deg, #4A9776 0%, #67D2A6 100%);
+        }
+        
+        .theme-btn-indigo {
+            background: linear-gradient(135deg, #5271FF 0%, #7FA5FF 100%);
+        }
+        
+        .theme-btn-parchment {
+            background: linear-gradient(135deg, #947855 0%, #E3B074 100%);
+        }
+        
+        /* Existing styles with theme variables */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg) 0%, var(--card) 50%, var(--secondary) 100%);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--bg) 0%, var(--card) 100%);
+        }
+        
+        .bg-gradient-radial {
+            background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+        }
+        
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .dark .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+        
+        .transition-theme {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .nav-shadow {
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .nav-shadow.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .dark .nav-shadow.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-indicator {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+        
+        .dark .scroll-indicator {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid;
+            display: none;
+        }
+        
+        .alert.success {
+            background-color: var(--secondary);
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        
+        .alert.error {
+            background-color: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+        
+        .dark .alert.error {
+            background-color: #7f1d1d;
+            border-color: #991b1b;
+            color: #fecaca;
+        }
+        
+        /* Input styling with theme variables */
+        .theme-input {
+            background-color: var(--card);
+            border-color: var(--border);
+            color: var(--text);
+        }
+        
+        .theme-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+    </style>
+</head>
+<body class="font-sans transition-theme">
+    
+    <!-- Navigation -->
+    <nav role="navigation" class="fixed top-0 w-full z-50 transition-theme theme-nav backdrop-blur-md theme-border border-b nav-shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8 flex-1 justify-center">
+                    <a href="#about" class="theme-text hover:text-[var(--accent)] transition-colors font-medium">About</a>
+                    <a href="#current-book" class="theme-text hover:text-[var(--accent)] transition-colors font-medium">Current Book</a>
+                    <a href="#archive" class="theme-text hover:text-[var(--accent)] transition-colors font-medium">Archive</a>
+                    <a href="#events" class="theme-text hover:text-[var(--accent)] transition-colors font-medium">Events</a>
+                    <a href="#join" class="theme-text hover:text-[var(--accent)] transition-colors font-medium">Join Us</a>
+                </div>
+                
+                <!-- Theme Switcher & Dark Mode Toggle - Desktop -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <!-- Theme Switcher -->
+                    <div class="theme-switcher">
+                        <button class="theme-btn theme-btn-forest" data-theme="forest" title="Forest Theme" aria-label="Switch to Forest Theme"></button>
+                        <button class="theme-btn theme-btn-indigo" data-theme="indigo" title="Indigo Theme" aria-label="Switch to Indigo Theme"></button>
+                        <button class="theme-btn theme-btn-parchment" data-theme="parchment" title="Parchment Theme" aria-label="Switch to Parchment Theme"></button>
+                    </div>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" 
+                            class="p-2 rounded-full transition-theme theme-card hover:bg-[var(--secondary)] theme-border border"
+                            aria-label="Toggle dark mode"
+                            role="button">
+                        <svg class="w-5 h-5 dark:hidden theme-text" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg class="w-5 h-5 hidden dark:block theme-accent" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" 
+                        class="md:hidden p-2 rounded hover:bg-[var(--secondary)] transition-colors"
+                        aria-label="Toggle mobile menu">
+                    <svg class="w-6 h-6 theme-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden transition-theme theme-nav theme-border border-b">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#about" class="block py-2 theme-text hover:text-[var(--accent)] font-medium transition-colors">About</a>
+                <a href="#current-book" class="block py-2 theme-text hover:text-[var(--accent)] font-medium transition-colors">Current Book</a>
+                <a href="#archive" class="block py-2 theme-text hover:text-[var(--accent)] font-medium transition-colors">Archive</a>
+                <a href="#events" class="block py-2 theme-text hover:text-[var(--accent)] font-medium transition-colors">Events</a>
+                <a href="#join" class="block py-2 theme-text hover:text-[var(--accent)] font-medium transition-colors">Join Us</a>
+                
+                <!-- Theme Switcher & Dark Mode Toggle - Mobile -->
+                <div class="pt-4 theme-border border-t">
+                    <div class="flex flex-col space-y-3">
+                        <!-- Theme Switcher Mobile -->
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm font-medium theme-text">Theme:</span>
+                            <div class="theme-switcher">
+                                <button class="theme-btn theme-btn-forest" data-theme="forest" title="Forest Theme" aria-label="Switch to Forest Theme"></button>
+                                <button class="theme-btn theme-btn-indigo" data-theme="indigo" title="Indigo Theme" aria-label="Switch to Indigo Theme"></button>
+                                <button class="theme-btn theme-btn-parchment" data-theme="parchment" title="Parchment Theme" aria-label="Switch to Parchment Theme"></button>
+                            </div>
+                        </div>
+                        
+                        <!-- Dark Mode Toggle Mobile -->
+                        <button id="theme-toggle-mobile" 
+                                class="flex items-center space-x-2 p-2 rounded transition-theme theme-card hover:bg-[var(--secondary)] theme-border border"
+                                aria-label="Toggle dark mode"
+                                role="button">
+                            <svg class="w-5 h-5 dark:hidden theme-text" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <svg class="w-5 h-5 hidden dark:block theme-accent" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                            </svg>
+                            <span class="text-sm font-medium theme-text">Toggle Dark Mode</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section min-h-screen flex flex-col justify-center items-center relative py-20 pt-32">
+            <!-- Subtle texture overlay -->
+            <div class="absolute inset-0 opacity-5 dark:opacity-10" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grain\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\"><circle cx=\"25\" cy=\"25\" r=\"1\" fill=\"%23000\"/><circle cx=\"75\" cy=\"25\" r=\"0.5\" fill=\"%23000\"/><circle cx=\"50\" cy=\"50\" r=\"1.5\" fill=\"%23000\"/><circle cx=\"25\" cy=\"75\" r=\"0.8\" fill=\"%23000\"/><circle cx=\"75\" cy=\"75\" r=\"1.2\" fill=\"%23000\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23grain)\"/></svg>');"></div>
+            
+            <!-- Vignette effect -->
+            <div class="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-[var(--secondary)]"></div>
+            
+            <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+                <!-- Main Logo -->
+                <div class="logo-container mb-8">
+                    <!-- Note: Use a transparent PNG for your logo -->
+                    <img id="logo" src="The Reflection Room logo-Photoroom.png" alt="The Reflection Room Logo" class="mx-auto my-12 w-full max-w-lg drop-shadow-lg" />
+                </div>
+                
+                <!-- Tagline -->
+                <h1 class="font-serif text-2xl md:text-3xl italic theme-accent mb-16 leading-relaxed">
+                    Grow through books. Lead through reflection.
+                </h1>
+                
+                <!-- Scroll indicator -->
+                <div class="animate-bounce mt-16 scroll-indicator">
+                    <svg class="w-6 h-6 mx-auto theme-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote of the Week -->
+        <section class="py-16 gradient-bg">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <div class="transition-theme theme-card backdrop-blur-sm rounded-lg p-8 card-shadow theme-border border">
+                    <h2 class="font-serif text-sm uppercase tracking-wide theme-accent mb-4">Quote of the Week</h2>
+                    <blockquote id="quote-text" class="font-serif text-2xl md:text-3xl italic theme-text mb-4">
+                        "The more that you read, the more things you will know. The more that you learn, the more places you'll go."
+                    </blockquote>
+                    <cite id="quote-author" class="theme-accent">— Dr. Seuss</cite>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="font-serif text-4xl font-bold text-center theme-text mb-12">About The Reflection Room</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <p class="text-lg theme-text leading-relaxed">
+                            Welcome to The Reflection Room, a student-led book club dedicated to fostering personal growth, deep thinking, and leadership development through the power of literature.
+                        </p>
+                        <p class="theme-text leading-relaxed">
+                            We believe that great books have the power to transform minds and inspire action. Our club creates a space for meaningful discussions, self-reflection, and intellectual growth among university students who seek wisdom and personal development.
+                        </p>
+                        <div class="grid grid-cols-2 gap-6 mt-8">
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 transition-theme theme-secondary-bg rounded-full flex items-center justify-center">
+                                    <svg class="w-8 h-8 theme-accent" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold theme-text">Growth</h3>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 transition-theme theme-secondary-bg rounded-full flex items-center justify-center">
+                                    <svg class="w-8 h-8 theme-accent" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold theme-text">Wisdom</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transition-theme theme-card rounded-lg p-8 card-shadow theme-border border">
+                        <h3 class="font-serif text-2xl font-semibold theme-text mb-6">Our Mission</h3>
+                        <ul class="space-y-4 theme-text">
+                            <li class="flex items-start">
+                                <span class="theme-accent mr-3">•</span>
+                                Foster deep, meaningful conversations about transformative literature
+                            </li>
+                            <li class="flex items-start">
+                                <span class="theme-accent mr-3">•</span>
+                                Encourage personal reflection and self-improvement
+                            </li>
+                            <li class="flex items-start">
+                                <span class="theme-accent mr-3">•</span>
+                                Build leadership skills through collaborative learning
+                            </li>
+                            <li class="flex items-start">
+                                <span class="theme-accent mr-3">•</span>
+                                Create a supportive community of lifelong learners
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Book Section -->
+        <section id="current-book" class="py-16 gradient-bg">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="font-serif text-4xl font-bold text-center theme-text mb-12">Current Book</h2>
+                <div class="transition-theme theme-card backdrop-blur-sm rounded-lg card-shadow p-8 theme-border border">
+                    <div class="grid md:grid-cols-3 gap-8 items-center">
+                        <div class="text-center">
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop" 
+                                 alt="Atomic Habits book cover" 
+                                 class="w-48 h-64 object-cover rounded-lg mx-auto card-shadow"
+                                 loading="lazy">
+                        </div>
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="font-serif text-3xl font-bold theme-text">Atomic Habits</h3>
+                            <p class="text-lg theme-accent">by James Clear</p>
+                            <p class="theme-text leading-relaxed">
+                                This month, we're exploring how tiny changes can lead to remarkable results. James Clear's groundbreaking work on habit formation provides practical strategies for building good habits and breaking bad ones.
+                            </p>
+                            <div class="space-y-2">
+                                <p class="text-sm theme-text">
+                                    <strong>Discussion Date:</strong> December 15, 2024
+                                </p>
+                                <p class="text-sm theme-text">
+                                    <strong>Meeting Time:</strong> 7:00 PM - 8:30 PM
+                                </p>
+                                <p class="text-sm theme-text">
+                                    <strong>Location:</strong> Library Study Room B
+                                </p>
+                            </div>
+                            <div class="pt-4">
+                                <span class="inline-block px-3 py-1 text-sm transition-theme theme-secondary-bg theme-text rounded-full mr-2">Self-Improvement</span>
+                                <span class="inline-block px-3 py-1 text-sm transition-theme theme-secondary-bg theme-text rounded-full mr-2">Psychology</span>
+                                <span class="inline-block px-3 py-1 text-sm transition-theme theme-secondary-bg theme-text rounded-full">Productivity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Archive Section -->
+        <section id="archive" class="py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="font-serif text-4xl font-bold text-center theme-text mb-12">Book Archive</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="transition-theme theme-card rounded-lg p-6 card-shadow theme-border border">
+                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&h=300&fit=crop" 
+                             alt="The 7 Habits of Highly Effective People book cover" 
+                             class="w-32 h-44 object-cover rounded mx-auto mb-4"
+                             loading="lazy">
+                        <h3 class="font-serif text-xl font-semibold theme-text mb-2">The 7 Habits of Highly Effective People</h3>
+                        <p class="theme-accent mb-2">by Stephen Covey</p>
+                        <p class="text-sm theme-secondary">Discussed: November 2024</p>
+                    </div>
+                    
+                    <div class="transition-theme theme-card rounded-lg p-6 card-shadow theme-border border">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=300&fit=crop" 
+                             alt="Mindset book cover" 
+                             class="w-32 h-44 object-cover rounded mx-auto mb-4"
+                             loading="lazy">
+                        <h3 class="font-serif text-xl font-semibold theme-text mb-2">Mindset</h3>
+                        <p class="theme-accent mb-2">by Carol Dweck</p>
+                        <p class="text-sm theme-secondary">Discussed: October 2024</p>
+                    </div>
+                    
+                    <div class="transition-theme theme-card rounded-lg p-6 card-shadow theme-border border">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=200&h=300&fit=crop" 
+                             alt="Man's Search for Meaning book cover" 
+                             class="w-32 h-44 object-cover rounded mx-auto mb-4"
+                             loading="lazy">
+                        <h3 class="font-serif text-xl font-semibold theme-text mb-2">Man's Search for Meaning</h3>
+                        <p class="theme-accent mb-2">by Viktor Frankl</p>
+                        <p class="text-sm theme-secondary">Discussed: September 2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="py-16 gradient-bg">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="font-serif text-4xl font-bold text-center theme-text mb-12">Upcoming Events</h2>
+                <div class="space-y-6">
+                    <div class="transition-theme theme-card backdrop-blur-sm rounded-lg p-6 card-shadow theme-border border">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h3 class="font-serif text-xl font-semibold theme-text mb-2">Book Discussion: Atomic Habits</h3>
+                                <p class="theme-accent mb-2">Deep dive into habit formation and practical implementation strategies</p>
+                                <p class="text-sm theme-secondary">📍 Library Study Room B</p>
+                            </div>
+                            <div class="text-right mt-4 md:mt-0">
+                                <p class="font-semibold theme-text">December 15, 2024</p>
+                                <p class="text-sm theme-accent">7:00 PM - 8:30 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="transition-theme theme-card backdrop-blur-sm rounded-lg p-6 card-shadow theme-border border">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h3 class="font-serif text-xl font-semibold theme-text mb-2">New Member Welcome Session</h3>
+                                <p class="theme-accent mb-2">Introduction to the club, meet fellow members, and book selection</p>
+                                <p class="text-sm theme-secondary">📍 Student Union Room 204</p>
+                            </div>
+                            <div class="text-right mt-4 md:mt-0">
+                                <p class="font-semibold theme-text">January 5, 2025</p>
+                                <p class="text-sm theme-accent">6:00 PM - 7:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="transition-theme theme-card backdrop-blur-sm rounded-lg p-6 card-shadow theme-border border">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <h3 class="font-serif text-xl font-semibold theme-text mb-2">Leadership Workshop</h3>
+                                <p class="theme-accent mb-2">Interactive session on applying book insights to leadership development</p>
+                                <p class="text-sm theme-secondary">📍 Conference Room A</p>
+                            </div>
+                            <div class="text-right mt-4 md:mt-0">
+                                <p class="font-semibold theme-text">January 20, 2025</p>
+                                <p class="text-sm theme-accent">2:00 PM - 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Members & Faculty Advisor Section -->
+        <section id="members" class="py-16">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="font-serif text-4xl font-bold text-center theme-text mb-12">Our Community</h2>
+                
+                <!-- Faculty Advisor -->
+                <div class="text-center mb-12">
+                    <div class="transition-theme theme-card rounded-lg p-8 card-shadow max-w-md mx-auto theme-border border">
+                        <div class="w-24 h-24 mx-auto mb-4 transition-theme theme-secondary-bg rounded-full flex items-center justify-center">
+                            <svg class="w-12 h-12 theme-accent" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold theme-text mb-2">Dr. Sarah Mitchell</h3>
+                        <p class="theme-accent mb-2">Faculty Advisor</p>
+                        <p class="text-sm theme-secondary">Professor of Literature & Philosophy</p>
+                    </div>
+                </div>
+                
+                <!-- Member Statistics -->
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="transition-theme theme-card rounded-lg p-6 card-shadow theme-border border">
+                        <div class="text-3xl font-bold theme-accent mb-2">45</div>
+                        <p class="theme-text">Active Members</p>
+                    </div>
+                    <div class="transition-theme theme-card rounded-lg p-6 card-shadow theme-border border">
+                        <div class="text-3xl font-bold theme-accent mb-2">24</div>
+                        <p class="theme-text">Books Discussed</p>
+                    </div>
+                    <div class="transition-theme theme-card rounded-lg p-6 card-shadow theme-border border">
+                        <div class="text-3xl font-bold theme-accent mb-2">2</div>
+                        <p class="theme-text">Years Active</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Us Section -->
+        <section id="join" class="py-16 gradient-bg">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="font-serif text-4xl font-bold text-center theme-text mb-8">Join The Reflection Room</h2>
+                <p class="text-center text-lg theme-text mb-12">
+                    Ready to embark on a journey of personal growth and intellectual discovery? We'd love to have you join our community of readers and thinkers.
+                </p>
+                
+                <div class="transition-theme theme-card backdrop-blur-sm rounded-lg p-8 card-shadow theme-border border">
+                    <!-- Alert Messages -->
+                    <div id="success-alert" class="alert success" role="alert">
+                        <strong>Success!</strong> Thank you for your interest in joining The Reflection Room! We will contact you soon with more information about our next meeting.
+                    </div>
+                    <div id="error-alert" class="alert error" role="alert">
+                        <strong>Error!</strong> Please fill in all required fields.
+                    </div>
+                    
+                    <form id="join-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="fullName" class="block text-sm font-medium theme-text mb-2">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" required
+                                       class="w-full px-4 py-3 rounded-lg border transition-theme theme-input focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium theme-text mb-2">Email Address *</label>
+                                <input type="email" id="email" name="email" required
+                                       class="w-full px-4 py-3 rounded-lg border transition-theme theme-input focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="year" class="block text-sm font-medium theme-text mb-2">Academic Year *</label>
+                            <select id="year" name="year" required
+                                    class="w-full px-4 py-3 rounded-lg border transition-theme theme-input focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent">
+                                <option value="">Select your year</option>
+                                <option value="freshman">Freshman</option>
+                                <option value="sophomore">Sophomore</option>
+                                <option value="junior">Junior</option>
+                                <option value="senior">Senior</option>
+                                <option value="graduate">Graduate Student</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="motivation" class="block text-sm font-medium theme-text mb-2">Why do you want to join? What motivates your interest in personal growth through reading? *</label>
+                            <textarea id="motivation" name="motivation" rows="4" required
+                                      class="w-full px-4 py-3 rounded-lg border transition-theme theme-input focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent resize-none"
+                                      placeholder="Share your thoughts on personal development, favorite books, or what you hope to gain from joining our community..."></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" 
+                                    class="px-8 py-3 transition-theme theme-accent-bg text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 transform hover:scale-105 transition-all duration-200">
+                                Join The Reflection Room
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="transition-theme theme-card text-[var(--text)] py-12 theme-border border-t">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-serif text-xl font-semibold mb-4 theme-text">The Reflection Room</h3>
+                    <p class="theme-accent mb-4">
+                        A university book club dedicated to personal growth, deep thinking, and leadership development.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="theme-secondary hover:text-[var(--accent)] transition-colors" aria-label="Twitter">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="theme-secondary hover:text-[var(--accent)] transition-colors" aria-label="Facebook">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="theme-secondary hover:text-[var(--accent)] transition-colors" aria-label="Pinterest">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.719-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.748-1.378 0 0-.597 2.291-.744 2.833-.288 1.104-1.066 2.490-1.588 3.338 1.194.365 2.456.565 3.756.565 6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 theme-text">Quick Links</h4>
+                    <ul class="space-y-2 theme-accent">
+                        <li><a href="#about" class="hover:text-[var(--text)] transition-colors">About Us</a></li>
+                        <li><a href="#current-book" class="hover:text-[var(--text)] transition-colors">Current Book</a></li>
+                        <li><a href="#archive" class="hover:text-[var(--text)] transition-colors">Book Archive</a></li>
+                        <li><a href="#events" class="hover:text-[var(--text)] transition-colors">Events</a></li>
+                        <li><a href="#join" class="hover:text-[var(--text)] transition-colors">Join Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 theme-text">Contact Info</h4>
+                    <div class="space-y-2 theme-accent">
+                        <p>📧 reflection.room@university.edu</p>
+                        <p>📱 Campus Ext: 2847</p>
+                        <p>📍 Student Union, Room 204</p>
+                        <p>🕒 Meetings: Bi-weekly Thursdays, 7 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="theme-border border-t mt-8 pt-8 text-center theme-secondary">
+                <p>&copy; 2024 The Reflection Room Book Club. Cultivating minds, one book at a time.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Multi-Theme System with Dark Mode Support
+        const html = document.documentElement;
+        
+        // Theme management
+        const currentTheme = localStorage.getItem('colorTheme') || 'forest';
+        const currentMode = localStorage.getItem('darkMode') || 'light';
+        
+        // Initialize theme on load
+        function initializeTheme() {
+            // Set color theme
+            html.className = html.className.replace(/theme-\w+/g, '');
+            html.classList.add(`theme-${currentTheme}`);
+            
+            // Set dark mode
+            if (currentMode === 'dark') {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+            
+            updateThemeButtons();
+            updateMetaThemeColor();
+        }
+        
+        // Theme switcher functionality
+        function switchTheme(themeName) {
+            html.className = html.className.replace(/theme-\w+/g, '');
+            html.classList.add(`theme-${themeName}`);
+            localStorage.setItem('colorTheme', themeName);
+            updateThemeButtons();
+            updateMetaThemeColor();
+        }
+        
+        // Dark mode toggle functionality
+        function toggleDarkMode() {
+            html.classList.toggle('dark');
+            const mode = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('darkMode', mode);
+            updateMetaThemeColor();
+        }
+        
+        // Update theme button states
+        function updateThemeButtons() {
+            const currentTheme = localStorage.getItem('colorTheme') || 'forest';
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.theme === currentTheme) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        // Update meta theme color based on current theme and mode
+        function updateMetaThemeColor() {
+            const isDark = html.classList.contains('dark');
+            const currentTheme = localStorage.getItem('colorTheme') || 'forest';
+            
+            let color = '#F7FAF7'; // Default forest light
+            
+            if (currentTheme === 'forest') {
+                color = isDark ? '#181D19' : '#F7FAF7';
+            } else if (currentTheme === 'indigo') {
+                color = isDark ? '#181B25' : '#F5F8FC';
+            } else if (currentTheme === 'parchment') {
+                color = isDark ? '#2B2119' : '#F7F3EC';
+            }
+            
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
+        }
+        
+        // Event listeners for theme buttons
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTheme(btn.dataset.theme);
+            });
+        });
+        
+        // Event listeners for dark mode toggles
+        document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+        document.getElementById('theme-toggle-mobile').addEventListener('click', toggleDarkMode);
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Quote rotation
+        const quotes = [
+            {
+                text: "The more that you read, the more things you will know. The more that you learn, the more places you'll go.",
+                author: "Dr. Seuss"
+            },
+            {
+                text: "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
+                author: "George R.R. Martin"
+            },
+            {
+                text: "Books are a uniquely portable magic.",
+                author: "Stephen King"
+            },
+            {
+                text: "The person you become is largely the result of the books you read and the people you meet.",
+                author: "Charlie Jones"
+            },
+            {
+                text: "Reading is to the mind what exercise is to the body.",
+                author: "Joseph Addison"
+            },
+            {
+                text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+                author: "Aristotle"
+            },
+            {
+                text: "The only way to do great work is to love what you do.",
+                author: "Steve Jobs"
+            },
+            {
+                text: "In the end, we will remember not the words of our enemies, but the silence of our friends.",
+                author: "Martin Luther King Jr."
+            }
+        ];
+        
+        function rotateQuote() {
+            const quoteText = document.getElementById('quote-text');
+            const quoteAuthor = document.getElementById('quote-author');
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            
+            // Fade out
+            quoteText.style.opacity = '0';
+            quoteAuthor.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteText.textContent = `"${randomQuote.text}"`;
+                quoteAuthor.textContent = `— ${randomQuote.author}`;
+                
+                // Fade in
+                quoteText.style.opacity = '1';
+                quoteAuthor.style.opacity = '1';
+            }, 300);
+        }
+        
+        // Rotate quote every 10 seconds
+        setInterval(rotateQuote, 10000);
+        
+        // Form submission with accessible alerts
+        function showAlert(type, show = true) {
+            const successAlert = document.getElementById('success-alert');
+            const errorAlert = document.getElementById('error-alert');
+            
+            // Hide all alerts
+            successAlert.style.display = 'none';
+            errorAlert.style.display = 'none';
+            
+            if (show) {
+                const alert = type === 'success' ? successAlert : errorAlert;
+                alert.style.display = 'block';
+                alert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // Focus the alert for screen readers
+                alert.setAttribute('tabindex', '-1');
+                alert.focus();
+                
+                // Auto-hide success message after 5 seconds
+                if (type === 'success') {
+                    setTimeout(() => {
+                        alert.style.display = 'none';
+                    }, 5000);
+                }
+            }
+        }
+        
+        const joinForm = document.getElementById('join-form');
+        joinForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Hide previous alerts
+            showAlert('', false);
+            
+            // Get form data
+            const formData = new FormData(joinForm);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.fullName || !data.email || !data.year || !data.motivation) {
+                showAlert('error');
+                return;
+            }
+            
+            // Show success message
+            showAlert('success');
+            
+            // Reset form
+            joinForm.reset();
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll effect to nav
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections for animation
+        document.querySelectorAll('section > div').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        
+        // Initialize theme on page load
+        initializeTheme();
+        
+        /*
+        HOW TO ADD MORE THEMES:
+        
+        1. Add CSS custom properties for the new theme in the <style> section:
+           .theme-newtheme {
+               --bg: #your-bg-color;
+               --card: #your-card-color;
+               --text: #your-text-color;
+               --accent: #your-accent-color;
+               --secondary: #your-secondary-color;
+               --nav-bg: rgba(your-nav-bg, 0.95);
+               --border: #your-border-color;
+               --hover: #your-hover-color;
+           }
+           
+           .theme-newtheme.dark {
+               --bg: #your-dark-bg;
+               --card: #your-dark-card;
+               --text: #your-dark-text;
+               --accent: #your-dark-accent;
+               --secondary: #your-dark-secondary;
+               --nav-bg: rgba(your-dark-nav-bg, 0.95);
+               --border: #your-dark-border;
+               --hover: #your-dark-hover;
+           }
+        
+        2. Add a gradient class for the theme button:
+           .theme-btn-newtheme {
+               background: linear-gradient(135deg, #color1 0%, #color2 100%);
+           }
+        
+        3. Add the theme button to both desktop and mobile theme switchers:
+           <button class="theme-btn theme-btn-newtheme" data-theme="newtheme" title="New Theme" aria-label="Switch to New Theme"></button>
+        
+        4. Update the updateMetaThemeColor() function to include your new theme colors.
+        
+        5. That's it! The JavaScript will automatically handle the theme switching and localStorage persistence.
+        */
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=Rjmomota/the-reflection-room" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
